@@ -15,8 +15,6 @@ class Spasial extends REST_Controller {
 		$this->load->view('index.html');
 	}
 
-
-
 	public function showdata_get(){
         $output =  $this->sp_model->getspasial();
 		if (!empty($output) && $output != FALSE) {

@@ -7,9 +7,9 @@ class Spasial_Model extends CI_Model {
     }
 
     public function getspasial(){
-        $data = $this->db->get('stis_kosan');
+        $data = $this->db->query('SELECT id, namawilaya, ST_AsGeoJSON(geom):: json  as geom FROM stis_kosan');
         //  print_r($data);
-       return $data;
+       return $data->result_array();
     }
 
     public function getkosan(){

@@ -177,7 +177,6 @@ class Spasial extends REST_Controller {
 
 
     public function inputkos_post(){
-
         $targetDir = 'Photos';
         if (isset($_REQUEST["name"])) {
 			$fileName = $_REQUEST["name"];
@@ -274,6 +273,19 @@ class Spasial extends REST_Controller {
             ];
             $this->response($message, REST_Controller::HTTP_NOT_FOUND);
         }
-
     }
+
+    public function nocluster_get($long, $lat){
+        $output =  $this->sp_model->cekcluster($long, $lat);
+        if (!empty($output) && $output != FALSE) {
+            $this->response($output, REST_Controller::HTTP_OK);
+        } else {
+                   $message = [
+                        'status' => FALSE,
+                        'message' => "Not Found"
+                    ];
+                    $this->response($message, REST_Controller::HTTP_NOT_FOUND);
+                }
+    }
+
 }

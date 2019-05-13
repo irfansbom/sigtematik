@@ -93,6 +93,18 @@
             cursor: pointer;
         }
 
+        .button2 {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            justify-content: center;
+            display: flex;
+        }
+
+
         /* Style the submit button with a specific background color etc */
         input[type=submit] {
             background-color: #4CAF50;
@@ -146,6 +158,32 @@
     <div id="map"></div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
+
+        jQuery.extend({
+            getValues: function (url) {
+                var result = null;
+                $.ajax({
+                    url: url,
+                    type: 'get',
+                    dataType: 'json',
+                    async: false,
+                    success: function (data) {
+                        result = data;
+                    }
+                });
+                return result;
+            }
+        });
+
+        $(document).ready(function () {
+            $('input[type="file"]').change(function (e) {
+                var fileName = e.target.files[0].name;
+                document.getElementById('filename').value = fileName;
+            });
+        });
+
+
+
         var map = L.map('map').setView([-6.231196, 106.869858, 86888], 15.8);
         L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
             attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
@@ -160,32 +198,36 @@
                 x.innerHTML = "Geolocation is not supported by this browser.";
             }
         }
-
         function showPosition(position) {
             document.getElementById("latitude").value = position.coords.latitude;
             document.getElementById("longitude").value = position.coords.longitude;
+            var layerdasar = $.getValues("api/Spasial/nocluster/" + position.coords.longitude + "/" + position.coords.latitude);
+            document.getElementById("nocluster").value = layerdasar.id;
+            document.getElementById("wilayah").value = layerdasar.namawilaya;
         }
 
     </script>
 
-    
-    <div class="container">
-        <form action="api/Spasial/inputkos">
 
+    <div class="container">
+        <form action="api/Spasial/inputkos"  enctype="multipart/form-data">
             <label for="alamat">Lokasi/Alamat</label>
             <input type="text" id="alamat" name="alamat" placeholder="Alamat..">
-
             <label for="jenis">Jenis</label>
             <select id="jenis" name="jenis">
                 <option value="Kosan">Kosan</option>
                 <option value="Kontrakan">Kontrakan</option>
             </select>
-
             <label for="longitude">Longitude, Latitude</label>
             <br />
-            <input class="input2" type="text" id="longitude" name="longitude" placeholder="Your longitude.." readonly>
-            <input class="input2" type="text" id="latitude" name="latitude" placeholder="Your latitude.." readonly>
-            <button class="button" type="button" onclick= "getLocation()">Get Location</button>
+            <input class="input2" type="text" id="longitude" name="longitude" placeholder="longitude(auto)" readonly>
+            <input class="input2" type="text" id="latitude" name="latitude" placeholder="latitude(auto)" readonly>
+            <button class="button" type="button" onclick="getLocation()">Get Location</button>
+            <br />
+            <label>No Cluster, Nama</label>
+            <br />
+            <input class="input2" type="text" id="nocluster" name="nocluster" placeholder="cluster(auto)" readonly>
+            <input class="input2" type="text" id="wilayah" name="wilayah" placeholder="cluster(auto)" readonly>
             <br />
             <label> karakteristik</label>
             <br />
@@ -197,7 +239,7 @@
             <br />
             <label> penghuni kos</label>
             <br />
-            <input type="text" id="penghuni kos" name="penghuni kos">
+            <input type="text" id="penghuni kos" name="penghunikos">
             <br />
             <label> kapasitas</label>
             <br />
@@ -211,7 +253,7 @@
             <br />
             <input type="text" id="harga" name="harga">
             <br />
-            <table >
+            <table>
                 <tr>
                     <td>jendela</td>
                     <td><input type="radio" id="jendela" name="jendela" value="ada">Ada</td>
@@ -254,7 +296,13 @@
                     <td><input type="radio" id="ac" name="ac" value="tidak">Tidak Ada</td>
                 </tr>
             </table>
-            <button class="button" type="submit" formmethod="POST"
+            <br />
+            <label>Masukan Foto</label>
+            <input type="file" name="userfile" accept="image/*">
+            <input type="text" name="filename" id="filename" readonly>
+            <br />
+            <br />
+            <button class="button2" type="submit" formmethod="POST"
                 onclick="alert('Mengirim Data Ke Server    ')">Submit</button>
 
         </form>

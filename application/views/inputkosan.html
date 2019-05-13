@@ -160,7 +160,7 @@
     <script type="text/javascript" src="zxc.js"></script>
     <script>
         var house = L.icon({
-            iconUrl: 'images/house.png',
+            iconUrl: 'images/marker.png',
             iconSize: [37, 37],
             iconAnchor: [16, 37],
             popupAnchor: [0, -28]
@@ -192,28 +192,32 @@
             attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
         }).addTo(map);
         var layerdasar = $.getValues("api/Spasial/datalengkap");		//full semua termasuk shp isinya 
-        L.geoJSON(layerdasar, {
+       geojsonlayer = L.geoJSON(layerdasar, {
             color: 'green',
             fillColor: '#fffff',
             fillOpacity: 0.5,
             pointToLayer: function (feature, latlng) {
                 return L.marker(latlng, { icon: house });
             }
-        }).addTo(map);
+        });
+        geojsonlayer.addTo(map);
 
         var x = document.getElementById("longitude");
         var y = document.getElementById("latitude");
+
         function getLocation() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(showPosition);
-                L.geoJSON([map_landmark,layerdasar], {
+                map.removeLayer(geojsonlayer);
+                geojsonlayer = L.geoJSON([map_landmark,layerdasar], {
                     color: 'green',
-                    fillColor: '#ffffff',
-                    fillOpacity: 0,
+                    fillColor: '#fffff',
+                    fillOpacity: 0.5,
                     pointToLayer: function (feature, latlng) {
                         return L.marker(latlng, { icon: house });
                     }
-                }).addTo(map);
+                });
+                geojsonlayer.addTo(map);
             } else {
                 x.innerHTML = "Geolocation is not supported by this browser.";
             }

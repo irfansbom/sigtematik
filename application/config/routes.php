@@ -59,6 +59,7 @@ $route['translate_uri_dashes'] = FALSE;
 | -------------------------------------------------------------------------
 */
 
-$route['api/Spasial/showdata'] = 'api/Spasial/showdata'; 
+$route['Spasial/showdata'] = 'api/Spasial/showdata'; 
+$route['Geotag/Photos/(:num)']= 'Photos/$1';
 $route['api/example/users/(:num)'] = 'api/example/users/id/$1'; // Example 4
 $route['api/example/users/(:num)(\.)([a-zA-Z0-9_-]+)(.*)'] = 'api/example/users/id/$1/format/$3$4'; // Example 8

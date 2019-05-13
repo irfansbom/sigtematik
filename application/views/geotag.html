@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title> Area Stis </title>
+	<meta charset="utf-8" />
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
+
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
+		integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+		crossorigin="" />
+	<script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
+		integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
+		crossorigin=""></script>
+	<style>
+		html,
+		body {
+			height: 100%;
+			margin: 0;
+		}
+
+		#map {
+			width: 600px;
+			height: 400px;
+		}
+
+		.info {
+			padding: 6px 8px;
+			font: 14px/16px Arial, Helvetica, sans-serif;
+			background: white;
+			background: rgba(255, 255, 255, 0.8);
+			box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+			border-radius: 5px;
+		}
+
+		.info h4 {
+			margin: 0 0 5px;
+			color: #777;
+		}
+	</style>
+	<style>
+		#map {
+			width: 100vw;
+			height: 100%;
+		}
+	</style>
+
+</head>
+
+<body>
+	<div id="map"></div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script>
+		jQuery.extend({
+			getValues: function (url) {
+				var result = null;
+				$.ajax({
+					url: url,
+					type: 'get',
+					dataType: 'json',
+					async: false,
+					success: function (data) {
+						result = data;
+					}
+				});
+				return result;
+			}
+		});
+
+		var layerdasar = $.getValues("api/Spasial/datalengkap");		//full semua termasuk shp isinya 
+		console.log(layerdasar);
+		var tagjeson = $.getValues("api/Spasial/datatag");
+		console.log(tagjeson);
+		var map = L.map('map').setView([-6.231196, 106.869858, 86888], 15.8);
+
+		var x = document.getElementById("demo");
+		
+		function getLocation() {
+			if (navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(showPosition);
+			} else {
+				x.innerHTML = "Geolocation is not supported by this browser.";
+			}
+		}
+
+		function showPosition(position) {
+			x.innerHTML = "Latitude: " + position.coords.latitude +
+				"<br>Longitude: " + position.coords.longitude;
+		}
+
+		L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+			attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+		}).addTo(map);
+
+		var house = L.icon({
+			iconUrl: 'images/house.png',
+			iconSize: [37, 37],
+			iconAnchor: [16, 37],
+			popupAnchor: [0, -28]
+		});
+
+		var info = L.control();
+		info.onAdd = function (map) {
+			this._div = L.DomUtil.create('div', 'info');
+			this.update();
+			return this._div;
+		};
+		info.update = function (properties) {
+			this._div.innerHTML = '<h4>Informasi Lengkap Kosan/Kontrakan di Daerah STIS Tahun 2019</h4> <br/> <strong> Click point </strong> untuk mengetahui info kosan atau <strong> Click daerah </strong> untuk <br/> mengetahui rata-rata harga kosan di daerah tersebut';
+		};
+		info.addTo(map);
+
+		L.geoJSON([tagjeson, layerdasar], {
+			color: 'green',
+			fillColor: '#fffff',
+			fillOpacity: 0.5,
+
+			onEachFeature: function (feature, layer) {
+				//disini untuk popup
+				var popupContent = ""
+				if (feature.properties && feature.properties.namawilaya) {
+					popupContent = "<p> Nama Daerah : " +
+						feature.properties.namawilaya + "</p> <p> Rata-rata harga : Rp " + feature.properties.hargaAvg + "</p>";
+				}
+				if (feature.properties && feature.properties.path) {
+					popupContent = "<p> Lokasi : " + feature.properties.alamat + "</p>" +
+						"<p>Harga :" + feature.properties.harga + "</p>" +
+						"<p>Foto Kosan : " + "<img src= /SigKelompok3/Photos/" + feature.properties.path + " height='350' width='300'</img>" + "</p>";
+				}
+
+				layer.bindPopup(popupContent);
+
+			}
+			,
+			pointToLayer: function (feature, latlng) {
+				return L.marker(latlng, { icon: house });
+			}
+		}).addTo(map);
+		map.attributionControl.addAttribution('Survei SIG 2019 &copy; <a href="http://stis.ac.id/">Sekolah Tinggi Ilmu Statistik</a>');
+
+	</script>
+
+
+</body>
+
+</html>

@@ -39,5 +39,16 @@ class Spasial_Model extends CI_Model {
                 return null;
             }
     }
+
+    public function gettagkosan(){
+        $data = $this->db->select('*')->from('kos')->join('geotagkosan', 'geotagkosan.no = kos.no')->get();
+        if($data->num_rows()){
+            return $data->result_array();
+        }else{
+            return null;
+        }
+    }
+
+
 }
 ?>

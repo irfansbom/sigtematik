@@ -157,8 +157,15 @@
     </div>
     <div id="map"></div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="zxc.js"></script>
     <script>
-
+        var house = L.icon({
+            iconUrl: 'images/house.png',
+            iconSize: [37, 37],
+            iconAnchor: [16, 37],
+            popupAnchor: [0, -28]
+        });
+        console.log(map_landmark);
         jQuery.extend({
             getValues: function (url) {
                 var result = null;
@@ -174,19 +181,24 @@
                 return result;
             }
         });
-
         $(document).ready(function () {
             $('input[type="file"]').change(function (e) {
                 var fileName = e.target.files[0].name;
                 document.getElementById('filename').value = fileName;
             });
         });
-
-
-
-        var map = L.map('map').setView([-6.231196, 106.869858, 86888], 15.8);
+        var map = L.map('map').setView([-6.231196, 106.869858, 86888], 15.5);
         L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
             attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+        }).addTo(map);
+        var layerdasar = $.getValues("api/Spasial/datalengkap");		//full semua termasuk shp isinya 
+        L.geoJSON(layerdasar, {
+            color: 'green',
+            fillColor: '#fffff',
+            fillOpacity: 0.5,
+            pointToLayer: function (feature, latlng) {
+                return L.marker(latlng, { icon: house });
+            }
         }).addTo(map);
 
         var x = document.getElementById("longitude");
@@ -194,6 +206,14 @@
         function getLocation() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(showPosition);
+                L.geoJSON([map_landmark,layerdasar], {
+                    color: 'green',
+                    fillColor: '#ffffff',
+                    fillOpacity: 0,
+                    pointToLayer: function (feature, latlng) {
+                        return L.marker(latlng, { icon: house });
+                    }
+                }).addTo(map);
             } else {
                 x.innerHTML = "Geolocation is not supported by this browser.";
             }
@@ -204,13 +224,23 @@
             var layerdasar = $.getValues("api/Spasial/nocluster/" + position.coords.longitude + "/" + position.coords.latitude);
             document.getElementById("nocluster").value = layerdasar.id;
             document.getElementById("wilayah").value = layerdasar.namawilaya;
+            map_landmark.features[0].geometry.coordinates[0] = position.coords.longitude;
+            map_landmark.features[0].geometry.coordinates[1] = position.coords.latitude;
+        }
+        function doPreview() {
+            form = document.getElementById('idOfForm');
+            form.target = 'api/Spasial/inputkos';
+            form.action = 'api/Spasial/inputkos';
+            form.submit();
+            form.action = 'api/Spasial/inputkos';
+            form.target = 'api/Spasial/inputkos';
         }
 
     </script>
 
 
     <div class="container">
-        <form action="api/Spasial/inputkos"  enctype="multipart/form-data">
+        <form action="api/Spasial/inputkos" enctype="multipart/form-data" id="idOfForm" method="POST">
             <label for="alamat">Lokasi/Alamat</label>
             <input type="text" id="alamat" name="alamat" placeholder="Alamat..">
             <label for="jenis">Jenis</label>
@@ -302,8 +332,7 @@
             <input type="text" name="filename" id="filename" readonly>
             <br />
             <br />
-            <button class="button2" type="submit" formmethod="POST"
-                onclick="alert('Mengirim Data Ke Server    ')">Submit</button>
+            <button class="button2" onclick="doPreview()" onclick="alert('Mengirim Data Ke Server    ')">Submit</button>
 
         </form>
     </div>

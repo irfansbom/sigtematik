@@ -15,11 +15,14 @@
             background-color: #333;
             overflow: hidden;
         }
-        body, html{
+
+        body,
+        html {
             top: 0;
-            margin: 0 ;
+            margin: 0;
             scroll-behavior: smooth;
         }
+
         /* Style the links inside the navigation bar */
         .topnav a {
             float: left;
@@ -69,7 +72,8 @@
             resize: vertical
                 /* Allow the user to vertically resize the textarea (not horizontally) */
         }
-        .input2[type=text]{
+
+        .input2[type=text] {
             width: 40%;
             padding: 12px;
             border: 1px solid #ccc;
@@ -80,7 +84,7 @@
             resize: horizontal;
         }
 
-        .button{
+        .button {
             background-color: #4CAF50;
             color: white;
             padding: 12px 20px;
@@ -118,6 +122,16 @@
             border: 3px solid #73AD21;
         }
 
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th,
+        td {
+            padding: 6px;
+            /* width: 10px; */
+        }
     </style>
 
 </head>
@@ -136,14 +150,30 @@
         L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
             attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
         }).addTo(map);
+
+        var x = document.getElementById("longitude");
+        var y = document.getElementById("latitude");
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                x.innerHTML = "Geolocation is not supported by this browser.";
+            }
+        }
+
+        function showPosition(position) {
+            document.getElementById("latitude").value = position.coords.latitude;
+            document.getElementById("longitude").value = position.coords.longitude;
+        }
+
     </script>
 
 
     <div class="container">
-        <form action="action_page.php">
+        <form action="api/Spasial/inputkos">
 
             <label for="alamat">Lokasi/Alamat</label>
-            <input type="text" id="alamat" name="firstname" placeholder="Alamat..">
+            <input type="text" id="alamat" name="alamat" placeholder="Alamat..">
 
             <label for="jenis">Jenis</label>
             <select id="jenis" name="jenis">
@@ -152,71 +182,80 @@
             </select>
 
             <label for="longitude">Longitude, Latitude</label>
-            <br/>
+            <br />
             <input class="input2" type="text" id="longitude" name="longitude" placeholder="Your longitude.." readonly>
-            <input class="input2"  type="text" id="latitude" name="latitude" placeholder="Your latitude.." readonly>
-            <button class="button" type="button" onclick="alert('Mengambil Lokasi')">Get Location</button>
-            <br/>
+            <input class="input2" type="text" id="latitude" name="latitude" placeholder="Your latitude.." readonly>
+            <button class="button" type="button" onclick= "getLocation()">Get Location</button>
+            <br />
             <label> karakteristik</label>
-            <br/>
-            <input  type="text" id="karakteristik" name="karakteristik" > 
-            <br/>
+            <br />
+            <input type="text" id="karakteristik" name="karakteristik">
+            <br />
             <label> pemilik</label>
-            <br/>
-            <input  type="text" id="pemilik" name="pemilik" > 
-            <br/>
+            <br />
+            <input type="text" id="pemilik" name="pemilik">
+            <br />
             <label> penghuni kos</label>
-            <br/>
-            <input  type="text" id="penghuni kos" name="penghuni kos" >
-            <br/> 
+            <br />
+            <input type="text" id="penghuni kos" name="penghuni kos">
+            <br />
             <label> kapasitas</label>
-            <br/>
-            <input  type="text" id="kapasitas" name="kapasitas" > 
-            <br/>
+            <br />
+            <input type="text" id="kapasitas" name="kapasitas">
+            <br />
             <label> luas</label>
-            <br/>
-            <input  type="text" id="luas" name="luas" > 
-            <br/>
+            <br />
+            <input type="text" id="luas" name="luas">
+            <br />
             <label> harga</label>
-            <br/>
-            <input  type="text" id="harga" name="harga" >
-            <br/>
-            <table border="1px">
+            <br />
+            <input type="text" id="harga" name="harga">
+            <br />
+            <table >
                 <tr>
                     <td>jendela</td>
-                    <td><input  type="radio" id="jendela" name="jendela" value="ada">Ada</td>
-                    <td><input  type="radio" id="jendela" name="jendela" value="tidak">Tidak Ada</td>
+                    <td><input type="radio" id="jendela" name="jendela" value="ada">Ada</td>
+                    <td><input type="radio" id="jendela" name="jendela" value="tidak">Tidak Ada</td>
                 </tr>
 
                 <tr>
                     <td>wc</td>
-                    <td><input  type="radio" id="wc" name="wc" value="ada">Ada</td>
-                    <td><input  type="radio" id="wc" name="wc" value="tidak">Tidak Ada</td>
+                    <td><input type="radio" id="wc" name="wc" value="ada">Ada</td>
+                    <td><input type="radio" id="wc" name="wc" value="tidak">Tidak Ada</td>
                 </tr>
 
-                <tr><td>ranjang</td>
-                    <td><input  type="radio" id="ranjang" name="ranjang" value="ada">Ada</td>
-                    <td><input  type="radio" id="ranjang" name="ranjang" value="tidak">Tidak Ada</td>
+                <tr>
+                    <td>ranjang</td>
+                    <td><input type="radio" id="ranjang" name="ranjang" value="ada">Ada</td>
+                    <td><input type="radio" id="ranjang" name="ranjang" value="tidak">Tidak Ada</td>
                 </tr>
 
-            <label> lemari</label>
-            <input  type="radio" id="lemari" name="lemari" value="ada">Ada
-            <input  type="radio" id="lemari" name="lemari" value="tidak">Tidak Ada<br>
-            <br/>
-            <label> meja</label>
-            <input  type="radio" id="meja" name="meja" value="ada">Ada
-            <input  type="radio" id="meja" name="meja" value="tidak">Tidak Ada<br>
-            <br/>
-            <label> kursi</label>
-            <input  type="radio" id="kursi" name="kursi" value="ada">Ada
-            <input  type="radio" id="kursi" name="kursi" value="tidak">Tidak Ada<br>
-            <br/>
-            <label> ac</label>
-            <input  type="radio" id="ac" name="ac" value="ada">Ada
-            <input  type="radio" id="ac" name="ac" value="tidak">Tidak Ada<br>
-            <br/>
+                <tr>
+                    <td>Lemari</td>
+                    <td><input type="radio" id="lemari" name="lemari" value="ada">Ada</td>
+                    <td><input type="radio" id="lemari" name="lemari" value="tidak">Tidak Ada</td>
+                </tr>
+
+                <tr>
+                    <td>Meja</td>
+                    <td><input type="radio" id="meja" name="meja" value="ada">Ada</td>
+                    <td><input type="radio" id="meja" name="meja" value="tidak">Tidak Ada</td>
+                </tr>
+
+                <tr>
+                    <td>Kursi</td>
+                    <td><input type="radio" id="kursi" name="kursi" value="ada">Ada</td>
+                    <td><input type="radio" id="kursi" name="kursi" value="tidak">Tidak Ada</td>
+                </tr>
+
+                <tr>
+                    <td>AC</td>
+                    <td> <input type="radio" id="ac" name="ac" value="ada">Ada</td>
+                    <td><input type="radio" id="ac" name="ac" value="tidak">Tidak Ada</td>
+                </tr>
             </table>
-            <input type="submit" value="Submit">
+            <button class="button" type="submit" formmethod="POST"
+                onclick="alert('Mengirim Data Ke Server    ')">Submit</button>
 
         </form>
     </div>

@@ -49,6 +49,19 @@ class Spasial_Model extends CI_Model {
         }
     }
 
+    public function inputkos(array $data){
+        $this->db->insert('kos', $data);
+        $c = $this->db->select('no')->order_by('no','DESC')->limit('1')->get('kos');
+        return $c->result_array();
+    }
+
+    public function inputspasial(array $data){
+        $this->db->insert('geotagkosan', $data);
+        if ($this->db->affected_rows()> 0 ) {
+            return array('message' => 'sukses');
+        }
+    }
+
 
 }
 ?>

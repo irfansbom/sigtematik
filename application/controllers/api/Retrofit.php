@@ -38,10 +38,6 @@ class Retrofit extends REST_Controller {
                     // 'path'=> $output[$i]['path'],
                 ];
             }
-
-
-          
-
         $fullmassage=[
             'geotagkosan'=>$properties
         ];

@@ -23,7 +23,7 @@
             scroll-behavior: smooth;
         }
 
-        
+
 
         /* Style the links inside the navigation bar */
         .topnav a {
@@ -53,9 +53,11 @@
             height: 91.4%;
             border: 3px solid #73AD21;
         }
-        label{
-            color:white;
+
+        label {
+            color: white;
         }
+
         input[type=text],
         select {
             width: 100%;
@@ -124,8 +126,8 @@
             background-color: #45a049;
         }
 
-        input[type=file]{
-            color :whitesmoke;  
+        input[type=file] {
+            color: whitesmoke;
         }
 
         /* Add a background color and some padding around the form */
@@ -150,10 +152,11 @@
         th,
         td {
             padding: 6px;
-            color:white;
+            color: white;
             /* width: 10px; */
         }
-        .div2{
+
+        .div2 {
             text-align: center;
             align-content: center;
             left: 40%;
@@ -161,22 +164,23 @@
         }
 
         .info {
-			padding: 6px 8px;
-			font: 12px/14px Arial, Helvetica, sans-serif;
-			background: white;
-			background: rgba(255, 255, 255, 0.8);
-			box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-			border-radius: 5px;
-		}
+            padding: 6px 8px;
+            font: 12px/14px Arial, Helvetica, sans-serif;
+            background: white;
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+        }
 
-		.info h4 {
-			margin: 0 0 5px;
-			color: #777;
+        .info h4 {
+            margin: 0 0 5px;
+            color: #777;
             text-align: center;
-		}
-        .p2{
+        }
+
+        .p2 {
             right: 0;
-            margin-top:7px;
+            margin-top: 7px;
             margin-right: 10px;
             position: absolute;
             -webkit-text-fill-color: white;
@@ -235,7 +239,7 @@
             attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
         }).addTo(map);
         var layerdasar = $.getValues("api/Spasial/datalengkap");		//full semua termasuk shp isinya 
-       geojsonlayer = L.geoJSON(layerdasar, {
+        geojsonlayer = L.geoJSON(layerdasar, {
             color: 'green',
             fillColor: '#fffff',
             fillOpacity: 0.5,
@@ -246,15 +250,15 @@
         geojsonlayer.addTo(map);
 
         var info = L.control();
-		info.onAdd = function (map) {
-			this._div = L.DomUtil.create('div', 'info');
-			this.update();
-			return this._div;
-		};
-		info.update = function (properties) {
-			this._div.innerHTML = '<h4>Lokasi Anda</h4> Click <strong>Get Location</strong> <br/>untuk mendapatkan koordinat anda ';
-		};
-		info.addTo(map);
+        info.onAdd = function (map) {
+            this._div = L.DomUtil.create('div', 'info');
+            this.update();
+            return this._div;
+        };
+        info.update = function (properties) {
+            this._div.innerHTML = '<h4>Lokasi Anda</h4> Click <strong>Get Location</strong> untuk <br/>mendapatkan koordinat anda saat ini ';
+        };
+        info.addTo(map);
 
         var x = document.getElementById("longitude");
         var y = document.getElementById("latitude");
@@ -263,7 +267,7 @@
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(showPosition);
                 map.removeLayer(geojsonlayer);
-                geojsonlayer = L.geoJSON([map_landmark,layerdasar], {
+                geojsonlayer = L.geoJSON([map_landmark, layerdasar], {
                     color: 'green',
                     fillColor: '#fffff',
                     fillOpacity: 0.5,
@@ -272,9 +276,9 @@
                     }
                 });
                 geojsonlayer.addTo(map);
-                
+
             } else {
-                x.innerHTML = "Geolocation is not supported by this browser.";
+                alert("Geolocation is not supported by this browser.");
             }
         }
         function showPosition(position) {
@@ -295,6 +299,20 @@
             form.action = 'api/Spasial/inputkos';
             form.target = 'api/Spasial/inputkos';
         }
+
+        function onMapClick(e) {
+            document.getElementById("latitude").value = e.latlng.lat;
+            document.getElementById("longitude").value = e.latlng.lng;
+            var layerdasar = $.getValues("api/Spasial/nocluster/" +  e.latlng.lng + "/" + e.latlng.lat);
+            // console.log(layerdasar);
+            document.getElementById("nocluster").value = layerdasar.id;
+            document.getElementById("wilayah").value = layerdasar.namawilaya;
+            map_landmark.features[0].geometry.coordinates[0] = e.latlng.lng;
+            map_landmark.features[0].geometry.coordinates[1] = e.latlng.lat;
+            alert("You clicked the map at " + e.latlng);
+            // console.log(e.latlng.lat);
+        }
+        map.on('click', onMapClick);
 
     </script>
 
@@ -321,27 +339,27 @@
             <br />
             <label> Karakteristik*</label>
             <br />
-            <input type="text" id="karakteristik" name="karakteristik">
+            <input type="text" id="karakteristik" name="karakteristik" placeholder="ex : patokan, pager, dll">
             <br />
             <label> Pemilik*</label>
             <br />
-            <input type="text" id="pemilik" name="pemilik">
+            <input type="text" id="pemilik" name="pemilik" placeholder="yang punya.." >
             <br />
             <label> Penghuni kos*</label>
             <br />
-            <input type="text" id="penghuni kos" name="penghunikos">
+            <input type="text" id="penghuni kos" name="penghunikos" placeholder="anak stis yang tinggal disana">
             <br />
             <label> Kapasitas*</label>
             <br />
-            <input type="text" id="kapasitas" name="kapasitas">
+            <input type="text" id="kapasitas" name="kapasitas" placeholder="kamar kosong tersedia">
             <br />
             <label> Luas*</label>
             <br />
-            <input type="text" id="luas" name="luas">
+            <input type="text" id="luas" name="luas" placeholder="ex : 2x3">
             <br />
             <label> Harga*</label>
             <br />
-            <input type="text" id="harga" name="harga">
+            <input type="text" id="harga" name="harga" placeholder="ex : 5000000">
             <br />
             <table>
                 <tr>
@@ -392,9 +410,10 @@
             <br />
             <br />
             <div class="div2">
-                    <button class="button2" onclick="doPreview()" onclick="alert('Mengirim Data Ke Server    ')">Submit</button>
+                <button class="button2" onclick="doPreview()"
+                    onclick="alert('Mengirim Data Ke Server    ')">Submit</button>
             </div>
-            <br/>
+            <br />
         </form>
     </div>
 </body>

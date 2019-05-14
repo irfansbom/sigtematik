@@ -177,6 +177,8 @@ class Spasial extends REST_Controller {
 
 
     public function inputkos_post(){
+        @set_time_limit(5 * 60);
+        $maxFileAge = 5 * 3600;
         $targetDir = 'Photos';
         if (isset($_REQUEST["name"])) {
 			$fileName = $_REQUEST["name"];
@@ -184,7 +186,8 @@ class Spasial extends REST_Controller {
 			$fileName = $_FILES["userfile"]["name"];
         }
         $id = rand();
-        $filePath = FCPATH . $targetDir . DIRECTORY_SEPARATOR . $id . '_' . $fileName;
+        $id2 = rand();
+        $filePath = FCPATH . $targetDir . DIRECTORY_SEPARATOR . $id . '_' .$id2.'.jpg';
         print_r($filePath);
         $insert_data = [
             'alamat'    =>    $this->input->post('alamat'),
@@ -209,7 +212,7 @@ class Spasial extends REST_Controller {
         $result = $this->sp_model->inputkos($insert_data);
         $insert_data2 = [
             'no' => $result[0]["no"],
-            'path' => $id. "_" .$fileName ,
+            'path' => $id. "_" .$id2.".jpg",
             'long'=>   $this->input->post('longitude'),
             'lat'  =>    $this->input->post('latitude'),
         ];

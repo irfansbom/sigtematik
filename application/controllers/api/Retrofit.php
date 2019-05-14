@@ -52,15 +52,15 @@ class Retrofit extends REST_Controller {
     }
 
     public function inputkos_post(){
-        $targetDir = 'Photos';
-        if (isset($_REQUEST["name"])) {
-			$fileName = $_REQUEST["name"];
-		} elseif (!empty($_FILES)) {
-			$fileName = $_FILES["userfile"]["name"];
-        }
-        $id = rand();
-        $filePath = FCPATH . $targetDir . DIRECTORY_SEPARATOR . $id . '_' . $fileName;
-        print_r($filePath);
+        // $targetDir = 'Photos';
+        // if (isset($_REQUEST["name"])) {
+		// 	$fileName = $_REQUEST["name"];
+		// } elseif (!empty($_FILES)) {
+		// 	$fileName = $_FILES["userfile"]["name"];
+        // }
+        // $id = rand();
+        // $filePath = FCPATH . $targetDir . DIRECTORY_SEPARATOR . $id . '_' . $fileName;
+        // print_r($filePath);
         $insert_data = [
 
             'alamat'    =>    $this->input->post('alamat'),
@@ -90,9 +90,6 @@ class Retrofit extends REST_Controller {
             'lat'  =>    $this->input->post('latitude'),
         ];
         $result2 = $this->sp_model->inputspasial($insert_data2);
-
-        
-
         if(!empty($result2) && $result2 != FALSE){
             $this->response($result2, REST_Controller::HTTP_OK);
         }else{

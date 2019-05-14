@@ -23,6 +23,8 @@
             scroll-behavior: smooth;
         }
 
+        
+
         /* Style the links inside the navigation bar */
         .topnav a {
             float: left;
@@ -51,13 +53,14 @@
             height: 91.4%;
             border: 3px solid #73AD21;
         }
-
+        label{
+            color:white;
+        }
         input[type=text],
-        select,
-        textarea {
+        select {
             width: 100%;
             /* Full width */
-            padding: 12px;
+            padding: 9px;
             /* Some padding */
             border: 1px solid #ccc;
             /* Gray border */
@@ -75,7 +78,7 @@
 
         .input2[type=text] {
             width: 40%;
-            padding: 12px;
+            padding: 9px;
             border: 1px solid #ccc;
             border-radius: 4px;
             box-sizing: border-box;
@@ -102,6 +105,7 @@
             cursor: pointer;
             justify-content: center;
             display: flex;
+            position: absolute;
         }
 
 
@@ -120,6 +124,10 @@
             background-color: #45a049;
         }
 
+        input[type=file]{
+            color :whitesmoke;  
+        }
+
         /* Add a background color and some padding around the form */
         .container {
             position: absolute;
@@ -128,7 +136,7 @@
             width: 47%;
             height: 85%;
             /* border-radius: 5px; */
-            background-color: #f2f2f2;
+            background-color: #535353;
             padding: 20px;
             overflow: auto;
             border: 3px solid #73AD21;
@@ -142,7 +150,41 @@
         th,
         td {
             padding: 6px;
+            color:white;
             /* width: 10px; */
+        }
+        .div2{
+            text-align: center;
+            align-content: center;
+            left: 40%;
+            position: absolute;
+        }
+
+        .info {
+			padding: 6px 8px;
+			font: 12px/14px Arial, Helvetica, sans-serif;
+			background: white;
+			background: rgba(255, 255, 255, 0.8);
+			box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+			border-radius: 5px;
+		}
+
+		.info h4 {
+			margin: 0 0 5px;
+			color: #777;
+            text-align: center;
+		}
+        .p2{
+            right: 0;
+            margin-top:7px;
+            margin-right: 10px;
+            position: absolute;
+            -webkit-text-fill-color: white;
+            /* Will override color (regardless of order) */
+            -webkit-text-stroke-width: 1px;
+            -webkit-text-stroke-color: #4CAF50;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 30px;
         }
     </style>
 
@@ -154,6 +196,7 @@
         <a href="Tematik">Wilayah Kos</a>
         <a href="geotag">Cari Kos</a>
         <a class="active" href="form">Input Kos</a>
+        <p class="p2">AREA STIS</p>
     </div>
     <div id="map"></div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -202,6 +245,17 @@
         });
         geojsonlayer.addTo(map);
 
+        var info = L.control();
+		info.onAdd = function (map) {
+			this._div = L.DomUtil.create('div', 'info');
+			this.update();
+			return this._div;
+		};
+		info.update = function (properties) {
+			this._div.innerHTML = '<h4>Lokasi Anda</h4> Click <strong>Get Location</strong> <br/>untuk mendapatkan koordinat anda ';
+		};
+		info.addTo(map);
+
         var x = document.getElementById("longitude");
         var y = document.getElementById("latitude");
 
@@ -245,63 +299,63 @@
 
     <div class="container">
         <form action="api/Spasial/inputkos" enctype="multipart/form-data" id="idOfForm" method="POST">
-            <label for="alamat">Lokasi/Alamat</label>
+            <label for="alamat">Lokasi/Alamat*</label>
             <input type="text" id="alamat" name="alamat" placeholder="Alamat..">
-            <label for="jenis">Jenis</label>
+            <label for="jenis">Jenis*</label>
             <select id="jenis" name="jenis">
                 <option value="Kosan">Kosan</option>
                 <option value="Kontrakan">Kontrakan</option>
             </select>
-            <label for="longitude">Longitude, Latitude</label>
+            <label for="longitude">Longitude*, Latitude*</label>
             <br />
             <input class="input2" type="text" id="longitude" name="longitude" placeholder="longitude(auto)" readonly>
             <input class="input2" type="text" id="latitude" name="latitude" placeholder="latitude(auto)" readonly>
             <button class="button" type="button" onclick="getLocation()">Get Location</button>
             <br />
-            <label>No Cluster, Nama</label>
+            <label>No Cluster*, Nama*</label>
             <br />
             <input class="input2" type="text" id="nocluster" name="nocluster" placeholder="cluster(auto)" readonly>
             <input class="input2" type="text" id="wilayah" name="wilayah" placeholder="cluster(auto)" readonly>
             <br />
-            <label> karakteristik</label>
+            <label> Karakteristik*</label>
             <br />
             <input type="text" id="karakteristik" name="karakteristik">
             <br />
-            <label> pemilik</label>
+            <label> Pemilik*</label>
             <br />
             <input type="text" id="pemilik" name="pemilik">
             <br />
-            <label> penghuni kos</label>
+            <label> Penghuni kos*</label>
             <br />
             <input type="text" id="penghuni kos" name="penghunikos">
             <br />
-            <label> kapasitas</label>
+            <label> Kapasitas*</label>
             <br />
             <input type="text" id="kapasitas" name="kapasitas">
             <br />
-            <label> luas</label>
+            <label> Luas*</label>
             <br />
             <input type="text" id="luas" name="luas">
             <br />
-            <label> harga</label>
+            <label> Harga*</label>
             <br />
             <input type="text" id="harga" name="harga">
             <br />
             <table>
                 <tr>
-                    <td>jendela</td>
+                    <td>Jendela*</td>
                     <td><input type="radio" id="jendela" name="jendela" value="ada">Ada</td>
                     <td><input type="radio" id="jendela" name="jendela" value="tidak">Tidak Ada</td>
                 </tr>
 
                 <tr>
-                    <td>wc</td>
+                    <td>WC</td>
                     <td><input type="radio" id="wc" name="wc" value="ada">Ada</td>
                     <td><input type="radio" id="wc" name="wc" value="tidak">Tidak Ada</td>
                 </tr>
 
                 <tr>
-                    <td>ranjang</td>
+                    <td>Ranjang</td>
                     <td><input type="radio" id="ranjang" name="ranjang" value="ada">Ada</td>
                     <td><input type="radio" id="ranjang" name="ranjang" value="tidak">Tidak Ada</td>
                 </tr>
@@ -331,13 +385,14 @@
                 </tr>
             </table>
             <br />
-            <label>Masukan Foto</label>
+            <label>Masukan Foto</label> &emsp;
             <input type="file" name="userfile" accept="image/*">
-            <input type="text" name="filename" id="filename" readonly>
             <br />
             <br />
-            <button class="button2" onclick="doPreview()" onclick="alert('Mengirim Data Ke Server    ')">Submit</button>
-
+            <div class="div2">
+                    <button class="button2" onclick="doPreview()" onclick="alert('Mengirim Data Ke Server    ')">Submit</button>
+            </div>
+            <br/>
         </form>
     </div>
 </body>

@@ -272,6 +272,7 @@
                     }
                 });
                 geojsonlayer.addTo(map);
+                
             } else {
                 x.innerHTML = "Geolocation is not supported by this browser.";
             }
@@ -284,6 +285,7 @@
             document.getElementById("wilayah").value = layerdasar.namawilaya;
             map_landmark.features[0].geometry.coordinates[0] = position.coords.longitude;
             map_landmark.features[0].geometry.coordinates[1] = position.coords.latitude;
+            alert("Current position: " + position.coords.latitude + " " + position.coords.longitude);
         }
         function doPreview() {
             form = document.getElementById('idOfForm');

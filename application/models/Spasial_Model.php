@@ -62,6 +62,11 @@ class Spasial_Model extends CI_Model {
         }
     }
 
+    public function cekcluster($long, $lat){
+        $data = $this->db->query("SELECT id, namawilaya from stis_kosan WHERE ST_Within(ST_SetSRID(ST_Point('".$long."','".$lat."'),4326),ST_SetSRID(geom,4326));");
+        return $data->row();
+    }
+
 
 }
 ?>

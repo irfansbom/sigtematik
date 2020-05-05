@@ -2,420 +2,431 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
-        integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
-        crossorigin="" />
-    <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
-        integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
-        crossorigin=""></script>
-    <title>Area Stis</title>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
+		integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+		crossorigin="" />
+	<script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
+		integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
+		crossorigin=""></script>
+	<title>Area Stis</title>
 
-    <style>
-        .topnav {
-            background-color: #333;
-            overflow: hidden;
-        }
+	<style>
+		.topnav {
+			background-color: #333;
+			overflow: hidden;
+		}
 
-        body,
-        html {
-            top: 0;
-            margin: 0;
-            scroll-behavior: smooth;
-        }
-
-
-
-        /* Style the links inside the navigation bar */
-        .topnav a {
-            float: left;
-            color: #f2f2f2;
-            text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
-            font-size: 17px;
-        }
-
-        /* Change the color of links on hover */
-        .topnav a:hover {
-            background-color: #ddd;
-            color: black;
-        }
-
-        /* Add a color to the active/current link */
-        .topnav a.active {
-            background-color: #4CAF50;
-            color: white;
-        }
-
-        #map {
-            position: fixed;
-            width: 50%;
-            height: 91.4%;
-            border: 3px solid #73AD21;
-        }
-
-        label {
-            color: white;
-        }
-
-        input[type=text],
-        select {
-            width: 100%;
-            /* Full width */
-            padding: 9px;
-            /* Some padding */
-            border: 1px solid #ccc;
-            /* Gray border */
-            border-radius: 4px;
-            /* Rounded borders */
-            box-sizing: border-box;
-            /* Make sure that padding and width stays in place */
-            margin-top: 6px;
-            /* Add a top margin */
-            margin-bottom: 16px;
-            /* Bottom margin */
-            resize: vertical
-                /* Allow the user to vertically resize the textarea (not horizontally) */
-        }
-
-        .input2[type=text] {
-            width: 40%;
-            padding: 9px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-            margin-top: 6px;
-            margin-bottom: 16px;
-            resize: horizontal;
-        }
-
-        .button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .button2 {
-            background-color: #4CAF50;
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            justify-content: center;
-            display: flex;
-            position: absolute;
-        }
+		body,
+		html {
+			top: 0;
+			margin: 0;
+			scroll-behavior: smooth;
+		}
 
 
-        /* Style the submit button with a specific background color etc */
-        input[type=submit] {
-            background-color: #4CAF50;
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
 
-        /* When moving the mouse over the submit button, add a darker green color */
-        input[type=submit]:hover {
-            background-color: #45a049;
-        }
+		/* Style the links inside the navigation bar */
+		.topnav a {
+			float: left;
+			color: #f2f2f2;
+			text-align: center;
+			padding: 14px 16px;
+			text-decoration: none;
+			font-size: 17px;
+		}
 
-        input[type=file] {
-            color: whitesmoke;
-        }
+		/* Change the color of links on hover */
+		.topnav a:hover {
+			background-color: #ddd;
+			color: black;
+		}
 
-        /* Add a background color and some padding around the form */
-        .container {
-            position: absolute;
-            right: 0;
-            /* margin-right: 8px; */
-            width: 47%;
-            height: 85%;
-            /* border-radius: 5px; */
-            background-color: #535353;
-            padding: 20px;
-            overflow: auto;
-            border: 3px solid #73AD21;
-        }
+		/* Add a color to the active/current link */
+		.topnav a.active {
+			background-color: #4CAF50;
+			color: white;
+		}
 
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
+		#map {
+			position: fixed;
+			width: 50%;
+			height: 91.4%;
+			border: 3px solid #73AD21;
+		}
 
-        th,
-        td {
-            padding: 6px;
-            color: white;
-            /* width: 10px; */
-        }
+		label {
+			color: white;
+		}
 
-        .div2 {
-            text-align: center;
-            align-content: center;
-            left: 40%;
-            position: absolute;
-        }
+		input[type=text],
+		select {
+			width: 100%;
+			/* Full width */
+			padding: 9px;
+			/* Some padding */
+			border: 1px solid #ccc;
+			/* Gray border */
+			border-radius: 4px;
+			/* Rounded borders */
+			box-sizing: border-box;
+			/* Make sure that padding and width stays in place */
+			margin-top: 6px;
+			/* Add a top margin */
+			margin-bottom: 16px;
+			/* Bottom margin */
+			resize: vertical
+				/* Allow the user to vertically resize the textarea (not horizontally) */
+		}
 
-        .info {
-            padding: 6px 8px;
-            font: 12px/14px Arial, Helvetica, sans-serif;
-            background: white;
-            background: rgba(255, 255, 255, 0.8);
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-            border-radius: 5px;
-        }
+		.input2[type=text] {
+			width: 40%;
+			padding: 9px;
+			border: 1px solid #ccc;
+			border-radius: 4px;
+			box-sizing: border-box;
+			margin-top: 6px;
+			margin-bottom: 16px;
+			resize: horizontal;
+		}
 
-        .info h4 {
-            margin: 0 0 5px;
-            color: #777;
-            text-align: center;
-        }
+		.button {
+			background-color: #4CAF50;
+			color: white;
+			padding: 12px 20px;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+		}
 
-        .p2 {
-            right: 0;
-            margin-top: 7px;
-            margin-right: 10px;
-            position: absolute;
-            -webkit-text-fill-color: white;
-            /* Will override color (regardless of order) */
-            -webkit-text-stroke-width: 1px;
-            -webkit-text-stroke-color: #4CAF50;
-            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-            font-size: 30px;
-        }
-    </style>
+		.button2 {
+			background-color: #4CAF50;
+			color: white;
+			padding: 12px 20px;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			justify-content: center;
+			display: flex;
+			position: absolute;
+		}
+
+
+		/* Style the submit button with a specific background color etc */
+		input[type=submit] {
+			background-color: #4CAF50;
+			color: white;
+			padding: 12px 20px;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+		}
+
+		/* When moving the mouse over the submit button, add a darker green color */
+		input[type=submit]:hover {
+			background-color: #45a049;
+		}
+
+		input[type=file] {
+			color: whitesmoke;
+		}
+
+		/* Add a background color and some padding around the form */
+		.container {
+			position: absolute;
+			right: 0;
+			/* margin-right: 8px; */
+			width: 47%;
+			height: 85%;
+			/* border-radius: 5px; */
+			background-color: #535353;
+			padding: 20px;
+			overflow: auto;
+			border: 3px solid #73AD21;
+		}
+
+		table {
+			border-collapse: collapse;
+			width: 100%;
+		}
+
+		th,
+		td {
+			padding: 6px;
+			color: white;
+			/* width: 10px; */
+		}
+
+		.div2 {
+			text-align: center;
+			align-content: center;
+			left: 40%;
+			position: absolute;
+		}
+
+		.info {
+			padding: 6px 8px;
+			font: 12px/14px Arial, Helvetica, sans-serif;
+			background: white;
+			background: rgba(255, 255, 255, 0.8);
+			box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+			border-radius: 5px;
+		}
+
+		.info h4 {
+			margin: 0 0 5px;
+			color: #777;
+			text-align: center;
+		}
+
+		.p2 {
+			right: 0;
+			margin-top: 7px;
+			margin-right: 10px;
+			position: absolute;
+			-webkit-text-fill-color: white;
+			/* Will override color (regardless of order) */
+			-webkit-text-stroke-width: 1px;
+			-webkit-text-stroke-color: #4CAF50;
+			font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+			font-size: 30px;
+		}
+
+	</style>
 
 </head>
 
 <body>
-    <div class="topnav">
-        <a href="home">Home</a>
-        <a href="Tematik">Wilayah Kos</a>
-        <a href="geotag">Cari Kos</a>
-        <a class="active" href="form">Input Kos</a>
-        <p class="p2">AREA STIS</p>
-    </div>
-    <div id="map"></div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script type="text/javascript" src="zxc.js"></script>
-    <script>
-        var house = L.icon({
-            iconUrl: 'images/marker.png',
-            iconSize: [37, 37],
-            iconAnchor: [16, 37],
-            popupAnchor: [0, -28]
-        });
-        console.log(map_landmark);
-        jQuery.extend({
-            getValues: function (url) {
-                var result = null;
-                $.ajax({
-                    url: url,
-                    type: 'get',
-                    dataType: 'json',
-                    async: false,
-                    success: function (data) {
-                        result = data;
-                    }
-                });
-                return result;
-            }
-        });
-        $(document).ready(function () {
-            $('input[type="file"]').change(function (e) {
-                var fileName = e.target.files[0].name;
-                document.getElementById('filename').value = fileName;
-            });
-        });
-        var map = L.map('map').setView([-6.231196, 106.869858, 86888], 15.5);
-        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-            attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
-        }).addTo(map);
-        var layerdasar = $.getValues("api/Spasial/datalengkap");		//full semua termasuk shp isinya 
-        geojsonlayer = L.geoJSON(layerdasar, {
-            color: 'green',
-            fillColor: '#fffff',
-            fillOpacity: 0.5,
-            pointToLayer: function (feature, latlng) {
-                return L.marker(latlng, { icon: house });
-            }
-        });
-        geojsonlayer.addTo(map);
+	<div class="topnav">
+		<a href="home">Home</a>
+		<a href="Tematik">Wilayah Kos</a>
+		<a href="geotag">Cari Kos</a>
+		<a class="active" href="form">Input Kos</a>
+		<p class="p2">AREA STIS</p>
+	</div>
+	<div id="map"></div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script type="text/javascript" src="zxc.js"></script>
+	<script type="text/javascript" src="asd.js"></script>
+	<script>
+		var house = L.icon({
+			iconUrl: 'images/marker.png',
+			iconSize: [37, 37],
+			iconAnchor: [16, 37],
+			popupAnchor: [0, -28]
+		});
+		console.log(datasig);
+		jQuery.extend({
+			getValues: function (url) {
+				var result = null;
+				$.ajax({
+					url: url,
+					type: 'get',
+					dataType: 'json',
+					async: false,
+					success: function (data) {
+						result = data;
+					}
+				});
+				return result;
+			}
+		});
+		$(document).ready(function () {
+			$('input[type="file"]').change(function (e) {
+				var fileName = e.target.files[0].name;
+				document.getElementById('filename').value = fileName;
+			});
+		});
+		var map = L.map('map').setView([-6.231196, 106.869858, 86888], 15.5);
+		L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+			attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+		}).addTo(map);
+		// var layerdasar = $.getValues("api/Spasial/datalengkap"); //full semua termasuk shp isinya 
+		geojsonlayer = L.geoJSON(datasig, {
+			color: 'green',
+			fillColor: '#fffff',
+			fillOpacity: 0.5,
+			pointToLayer: function (feature, latlng) {
+				return L.marker(latlng, {
+					icon: house
+				});
+			}
+		});
+		geojsonlayer.addTo(map);
 
-        var info = L.control();
-        info.onAdd = function (map) {
-            this._div = L.DomUtil.create('div', 'info');
-            this.update();
-            return this._div;
-        };
-        info.update = function (properties) {
-            this._div.innerHTML = '<h4>Lokasi Anda</h4> Click <strong>Get Location</strong> untuk <br/>mendapatkan koordinat anda saat ini ';
-        };
-        info.addTo(map);
+		var info = L.control();
+		info.onAdd = function (map) {
+			this._div = L.DomUtil.create('div', 'info');
+			this.update();
+			return this._div;
+		};
+		info.update = function (properties) {
+			this._div.innerHTML =
+				'<h4>Lokasi Anda</h4> Click <strong>Get Location</strong> untuk <br/>mendapatkan koordinat anda saat ini ';
+		};
+		info.addTo(map);
 
-        var x = document.getElementById("longitude");
-        var y = document.getElementById("latitude");
+		var x = document.getElementById("longitude");
+		var y = document.getElementById("latitude");
 
-        function getLocation() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(showPosition);
-                map.removeLayer(geojsonlayer);
-                geojsonlayer = L.geoJSON([map_landmark, layerdasar], {
-                    color: 'green',
-                    fillColor: '#fffff',
-                    fillOpacity: 0.5,
-                    pointToLayer: function (feature, latlng) {
-                        return L.marker(latlng, { icon: house });
-                    }
-                });
-                geojsonlayer.addTo(map);
+		function getLocation() {
+			if (navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(showPosition);
+				map.removeLayer(geojsonlayer);
+				geojsonlayer = L.geoJSON([map_landmark, datasig], {
+					color: 'green',
+					fillColor: '#fffff',
+					fillOpacity: 0.5,
+					pointToLayer: function (feature, latlng) {
+						return L.marker(latlng, {
+							icon: house
+						});
+					}
+				});
+				geojsonlayer.addTo(map);
 
-            } else {
-                alert("Geolocation is not supported by this browser.");
-            }
-        }
-        function showPosition(position) {
-            document.getElementById("latitude").value = position.coords.latitude;
-            document.getElementById("longitude").value = position.coords.longitude;
-            var layerdasar = $.getValues("api/Spasial/nocluster/" + position.coords.longitude + "/" + position.coords.latitude);
-            document.getElementById("nocluster").value = layerdasar.id;
-            document.getElementById("wilayah").value = layerdasar.namawilaya;
-            map_landmark.features[0].geometry.coordinates[0] = position.coords.longitude;
-            map_landmark.features[0].geometry.coordinates[1] = position.coords.latitude;
-            alert("Current position: " + position.coords.latitude + " " + position.coords.longitude);
-        }
-        function doPreview() {
-            form = document.getElementById('idOfForm');
-            form.target = 'api/Spasial/inputkos';
-            form.action = 'api/Spasial/inputkos';
-            form.submit();
-            form.action = 'api/Spasial/inputkos';
-            form.target = 'api/Spasial/inputkos';
-        }
+			} else {
+				alert("Geolocation is not supported by this browser.");
+			}
+		}
 
-        function onMapClick(e) {
-            document.getElementById("latitude").value = e.latlng.lat;
-            document.getElementById("longitude").value = e.latlng.lng;
-            var layerdasar = $.getValues("api/Spasial/nocluster/" +  e.latlng.lng + "/" + e.latlng.lat);
-            // console.log(layerdasar);
-            document.getElementById("nocluster").value = layerdasar.id;
-            document.getElementById("wilayah").value = layerdasar.namawilaya;
-            map_landmark.features[0].geometry.coordinates[0] = e.latlng.lng;
-            map_landmark.features[0].geometry.coordinates[1] = e.latlng.lat;
-            alert("You clicked the map at " + e.latlng);
-            // console.log(e.latlng.lat);
-        }
-        map.on('click', onMapClick);
+		function showPosition(position) {
+			document.getElementById("latitude").value = position.coords.latitude;
+			document.getElementById("longitude").value = position.coords.longitude;
+			// var datasig = $.getValues("api/Spasial/nocluster/" + position.coords.longitude + "/" + position.coords
+			// 	.latitude);
+			document.getElementById("nocluster").value = datasig.id;
+			document.getElementById("wilayah").value = datasig.features.properties.Namawilaya;
+			map_landmark.features[0].geometry.coordinates[0] = position.coords.longitude;
+			map_landmark.features[0].geometry.coordinates[1] = position.coords.latitude;
+			alert("Current position: " + position.coords.latitude + " " + position.coords.longitude);
+		}
 
-    </script>
+		// function doPreview() {
+		// 	form = document.getElementById('idOfForm');
+		// 	form.target = 'api/Spasial/inputkos';
+		// 	form.action = 'api/Spasial/inputkos';
+		// 	form.submit();
+		// 	form.action = 'api/Spasial/inputkos';
+		// 	form.target = 'api/Spasial/inputkos';
+		// }
+
+		function onMapClick(e) {
+			document.getElementById("latitude").value = e.latlng.lat;
+			document.getElementById("longitude").value = e.latlng.lng;
+			// var layerdasar = $.getValues("api/Spasial/nocluster/" + e.latlng.lng + "/" + e.latlng.lat);
+			// console.log(layerdasar);
+			document.getElementById("nocluster").value = datasig.id;
+			document.getElementById("wilayah").value = datasig.Namawilaya;
+			console.log(e);
+			map_landmark.features[0].geometry.coordinates[0] = e.latlng.lng;
+			map_landmark.features[0].geometry.coordinates[1] = e.latlng.lat;
+			// alert("You clicked the map at " + e.latlng); 
+			// console.log(e.latlng.lat);
+		}
+		map.on('click', onMapClick);
+
+	</script>
 
 
-    <div class="container">
-        <form action="api/Spasial/inputkos" enctype="multipart/form-data" id="idOfForm" method="POST">
-            <label for="alamat">Lokasi/Alamat*</label>
-            <input type="text" id="alamat" name="alamat" placeholder="Alamat..">
-            <label for="jenis">Jenis*</label>
-            <select id="jenis" name="jenis">
-                <option value="Kosan">Kosan</option>
-                <option value="Kontrakan">Kontrakan</option>
-            </select>
-            <label for="longitude">Longitude*, Latitude*</label>
-            <br />
-            <input class="input2" type="text" id="longitude" name="longitude" placeholder="longitude(auto)" readonly>
-            <input class="input2" type="text" id="latitude" name="latitude" placeholder="latitude(auto)" readonly>
-            <button class="button" type="button" onclick="getLocation()">Get Location</button>
-            <br />
-            <label>No Cluster*, Nama*</label>
-            <br />
-            <input class="input2" type="text" id="nocluster" name="nocluster" placeholder="cluster(auto)" readonly>
-            <input class="input2" type="text" id="wilayah" name="wilayah" placeholder="cluster(auto)" readonly>
-            <br />
-            <label> Karakteristik*</label>
-            <br />
-            <input type="text" id="karakteristik" name="karakteristik" placeholder="ex : patokan, pager, dll">
-            <br />
-            <label> Pemilik*</label>
-            <br />
-            <input type="text" id="pemilik" name="pemilik" placeholder="yang punya.." >
-            <br />
-            <label> Penghuni kos*</label>
-            <br />
-            <input type="text" id="penghuni kos" name="penghunikos" placeholder="anak stis yang tinggal disana">
-            <br />
-            <label> Kapasitas*</label>
-            <br />
-            <input type="text" id="kapasitas" name="kapasitas" placeholder="kamar kosong tersedia">
-            <br />
-            <label> Luas*</label>
-            <br />
-            <input type="text" id="luas" name="luas" placeholder="ex : 2x3">
-            <br />
-            <label> Harga*</label>
-            <br />
-            <input type="text" id="harga" name="harga" placeholder="ex : 5000000">
-            <br />
-            <table>
-                <tr>
-                    <td>Jendela*</td>
-                    <td><input type="radio" id="jendela" name="jendela" value="ada">Ada</td>
-                    <td><input type="radio" id="jendela" name="jendela" value="tidak">Tidak Ada</td>
-                </tr>
+	<div class="container">
+		<form action="api/Spasial/inputkos" enctype="multipart/form-data" id="idOfForm" method="POST">
+			<label for="alamat">Lokasi/Alamat*</label>
+			<input type="text" id="alamat" name="alamat" placeholder="Alamat..">
+			<label for="jenis">Jenis*</label>
+			<select id="jenis" name="jenis">
+				<option value="Kosan">Kosan</option>
+				<option value="Kontrakan">Kontrakan</option>
+			</select>
+			<label for="longitude">Longitude*, Latitude*</label>
+			<br />
+			<input class="input2" type="text" id="longitude" name="longitude" placeholder="longitude(auto)" readonly>
+			<input class="input2" type="text" id="latitude" name="latitude" placeholder="latitude(auto)" readonly>
+			<button class="button" type="button" onclick="getLocation()">Get Location</button>
+			<br />
+			<label>No Cluster*, Nama*</label>
+			<br />
+			<input class="input2" type="text" id="nocluster" name="nocluster" placeholder="cluster(auto)" readonly>
+			<input class="input2" type="text" id="wilayah" name="wilayah" placeholder="cluster(auto)" readonly>
+			<br />
+			<label> Karakteristik*</label>
+			<br />
+			<input type="text" id="karakteristik" name="karakteristik" placeholder="ex : patokan, pager, dll">
+			<br />
+			<label> Pemilik*</label>
+			<br />
+			<input type="text" id="pemilik" name="pemilik" placeholder="yang punya..">
+			<br />
+			<label> Penghuni kos*</label>
+			<br />
+			<input type="text" id="penghuni kos" name="penghunikos" placeholder="anak stis yang tinggal disana">
+			<br />
+			<label> Kapasitas*</label>
+			<br />
+			<input type="text" id="kapasitas" name="kapasitas" placeholder="kamar kosong tersedia">
+			<br />
+			<label> Luas*</label>
+			<br />
+			<input type="text" id="luas" name="luas" placeholder="ex : 2x3">
+			<br />
+			<label> Harga*</label>
+			<br />
+			<input type="text" id="harga" name="harga" placeholder="ex : 5000000">
+			<br />
+			<table>
+				<tr>
+					<td>Jendela*</td>
+					<td><input type="radio" id="jendela" name="jendela" value="ada">Ada</td>
+					<td><input type="radio" id="jendela" name="jendela" value="tidak">Tidak Ada</td>
+				</tr>
 
-                <tr>
-                    <td>WC</td>
-                    <td><input type="radio" id="wc" name="wc" value="ada">Ada</td>
-                    <td><input type="radio" id="wc" name="wc" value="tidak">Tidak Ada</td>
-                </tr>
+				<tr>
+					<td>WC</td>
+					<td><input type="radio" id="wc" name="wc" value="ada">Ada</td>
+					<td><input type="radio" id="wc" name="wc" value="tidak">Tidak Ada</td>
+				</tr>
 
-                <tr>
-                    <td>Ranjang</td>
-                    <td><input type="radio" id="ranjang" name="ranjang" value="ada">Ada</td>
-                    <td><input type="radio" id="ranjang" name="ranjang" value="tidak">Tidak Ada</td>
-                </tr>
+				<tr>
+					<td>Ranjang</td>
+					<td><input type="radio" id="ranjang" name="ranjang" value="ada">Ada</td>
+					<td><input type="radio" id="ranjang" name="ranjang" value="tidak">Tidak Ada</td>
+				</tr>
 
-                <tr>
-                    <td>Lemari</td>
-                    <td><input type="radio" id="lemari" name="lemari" value="ada">Ada</td>
-                    <td><input type="radio" id="lemari" name="lemari" value="tidak">Tidak Ada</td>
-                </tr>
+				<tr>
+					<td>Lemari</td>
+					<td><input type="radio" id="lemari" name="lemari" value="ada">Ada</td>
+					<td><input type="radio" id="lemari" name="lemari" value="tidak">Tidak Ada</td>
+				</tr>
 
-                <tr>
-                    <td>Meja</td>
-                    <td><input type="radio" id="meja" name="meja" value="ada">Ada</td>
-                    <td><input type="radio" id="meja" name="meja" value="tidak">Tidak Ada</td>
-                </tr>
+				<tr>
+					<td>Meja</td>
+					<td><input type="radio" id="meja" name="meja" value="ada">Ada</td>
+					<td><input type="radio" id="meja" name="meja" value="tidak">Tidak Ada</td>
+				</tr>
 
-                <tr>
-                    <td>Kursi</td>
-                    <td><input type="radio" id="kursi" name="kursi" value="ada">Ada</td>
-                    <td><input type="radio" id="kursi" name="kursi" value="tidak">Tidak Ada</td>
-                </tr>
+				<tr>
+					<td>Kursi</td>
+					<td><input type="radio" id="kursi" name="kursi" value="ada">Ada</td>
+					<td><input type="radio" id="kursi" name="kursi" value="tidak">Tidak Ada</td>
+				</tr>
 
-                <tr>
-                    <td>AC</td>
-                    <td> <input type="radio" id="ac" name="ac" value="ada">Ada</td>
-                    <td><input type="radio" id="ac" name="ac" value="tidak">Tidak Ada</td>
-                </tr>
-            </table>
-            <br />
-            <label>Masukan Foto</label> &emsp;
-            <input type="file" name="userfile" accept="image/*">
-            <br />
-            <br />
-            <div class="div2">
-                <button class="button2" onclick="doPreview()"
-                    onclick="alert('Mengirim Data Ke Server    ')">Submit</button>
-            </div>
-            <br />
-        </form>
-    </div>
+				<tr>
+					<td>AC</td>
+					<td> <input type="radio" id="ac" name="ac" value="ada">Ada</td>
+					<td><input type="radio" id="ac" name="ac" value="tidak">Tidak Ada</td>
+				</tr>
+			</table>
+			<br />
+			<label>Masukan Foto</label> &emsp;
+			<input type="file" name="userfile" accept="image/*">
+			<br />
+			<br />
+			<div class="div2">
+				<button class="button2" onclick="doPreview()"
+					onclick="alert('Mengirim Data Ke Server    ')">Submit</button>
+			</div>
+			<br />
+		</form>
+	</div>
 </body>
 
 </html>

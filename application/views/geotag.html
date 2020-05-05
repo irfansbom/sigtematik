@@ -40,12 +40,14 @@
 			margin: 0 0 5px;
 			color: #777;
 		}
+
 	</style>
 	<style>
 		#map {
 			width: 100vw;
 			height: 100%;
 		}
+
 	</style>
 	<style>
 		.topnav {
@@ -207,6 +209,7 @@
 			width: auto;
 
 		}
+
 	</style>
 
 </head>
@@ -220,6 +223,8 @@
 		<p class="p2">AREA STIS</p>
 	</div>
 	<div id="map"></div>
+	<script type="text/javascript" src="zxc.js"></script>
+	<script type="text/javascript" src="asd.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script>
 		jQuery.extend({
@@ -238,10 +243,10 @@
 			}
 		});
 
-		var layerdasar = $.getValues("api/Spasial/datalengkap");		//full semua termasuk shp isinya 
-		console.log(layerdasar);
-		var tagjeson = $.getValues("api/Spasial/datatag");
-		console.log(tagjeson);
+		// var layerdasar = $.getValues("api/Spasial/datalengkap");		//full semua termasuk shp isinya 
+		// console.log(layerdasar);
+		// var tagjeson = $.getValues("api/Spasial/datatag");
+		// console.log(tagjeson);
 		var map = L.map('map').setView([-6.231196, 106.869858, 86888], 15.8);
 
 		var x = document.getElementById("demo");
@@ -264,11 +269,13 @@
 			return this._div;
 		};
 		info.update = function (properties) {
-			this._div.innerHTML = '<h4>Informasi Lengkap Kosan/Kontrakan di Daerah STIS Tahun 2019</h4> <br/> <strong> Click point </strong> untuk mengetahui info kosan atau <strong> Click daerah </strong> untuk <br/> mengetahui rata-rata harga kosan di daerah tersebut';
+			this._div.innerHTML =
+				'<h4>Informasi Lengkap Kosan/Kontrakan di Daerah STIS Tahun 2019</h4> <br/> <strong> Click point </strong> untuk mengetahui info kosan atau <strong> Click daerah </strong> untuk <br/> mengetahui rata-rata harga kosan di daerah tersebut';
 		};
 		info.addTo(map);
-
-		L.geoJSON([tagjeson, layerdasar], {
+		console.log(map_landmark)
+		console.log(datasig)
+		L.geoJSON([map_landmark, datasig], {
 			color: 'green',
 			fillColor: '#fffff',
 			fillOpacity: 0.5,
@@ -278,7 +285,8 @@
 				var popupContent = ""
 				if (feature.properties && feature.properties.namawilaya) {
 					popupContent = "<p> Nama Daerah : " +
-						feature.properties.namawilaya + "</p> <p> Rata-rata harga : Rp " + feature.properties.hargaAvg + "</p>";
+						feature.properties.namawilaya + "</p> <p> Rata-rata harga : Rp " + feature.properties
+						.hargaAvg + "</p>";
 				}
 				if (feature.properties && feature.properties.path) {
 					popupContent = "<span><div class='div1'>  Lokasi : " + feature.properties.alamat + "<br/>" +
@@ -295,18 +303,23 @@
 						"Lemari :" + feature.properties.lemari + "<br/>" +
 						"Meja :" + feature.properties.meja + "<br/>" +
 						"Kursi :" + feature.properties.kursi + "<br/>" +
-						"AC :" + feature.properties.ac + "<br/></div></span><span><div class='div2'> Foto Kosan : " + "<img src= /SigKelompok3/Photos/" + feature.properties.path + " height='350' width='300'</img></div></span>";
+						"AC :" + feature.properties.ac +
+						"<br/></div></span><span><div class='div2'> Foto Kosan : " +
+						"<img src= /SigKelompok3/Photos/" + feature.properties.path +
+						" height='350' width='300'</img></div></span>";
 				}
 
 				layer.bindPopup(popupContent);
 
-			}
-			,
+			},
 			pointToLayer: function (feature, latlng) {
-				return L.marker(latlng, { icon: house });
+				return L.marker(latlng, {
+					icon: house
+				});
 			}
 		}).addTo(map);
-		map.attributionControl.addAttribution('Survei SIG 2019 &copy; <a href="http://stis.ac.id/">Sekolah Tinggi Ilmu Statistik</a>');
+		map.attributionControl.addAttribution(
+			'Survei SIG 2019 &copy; <a href="http://stis.ac.id/">Sekolah Tinggi Ilmu Statistik</a>');
 
 	</script>
 

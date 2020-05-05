@@ -28,6 +28,7 @@
 			width: 600px;
 			height: 400px;
 		}
+
 	</style>
 	<style>
 		#map {
@@ -62,141 +63,149 @@
 			margin-right: 8px;
 			opacity: 0.7;
 		}
+
 	</style>
 	<style>
-			.topnav {
-				background-color: #333;
-				overflow: hidden;
-			}
-			body, html{
-				top: 0;
-				margin: 0 ;
-				scroll-behavior: smooth;
-			}
-			/* Style the links inside the navigation bar */
-			.topnav a {
-				float: left;
-				color: #f2f2f2;
-				text-align: center;
-				padding: 14px 16px;
-				text-decoration: none;
-				font-size: 17px;
-			}
-	
-			/* Change the color of links on hover */
-			.topnav a:hover {
-				background-color: #ddd;
-				color: black;
-			}
-	
-			/* Add a color to the active/current link */
-			.topnav a.active {
-				background-color: #4CAF50;
-				color: white;
-			}
-	
-			#map {
-				position: fixed;
-				width: 100%;
-				height: 91.4%;
-				border: 3px solid #73AD21;
-			}
-	
-			input[type=text],
-			select,
-			textarea {
-				width: 100%;
-				/* Full width */
-				padding: 12px;
-				/* Some padding */
-				border: 1px solid #ccc;
-				/* Gray border */
-				border-radius: 4px;
-				/* Rounded borders */
-				box-sizing: border-box;
-				/* Make sure that padding and width stays in place */
-				margin-top: 6px;
-				/* Add a top margin */
-				margin-bottom: 16px;
-				/* Bottom margin */
-				resize: vertical
-					/* Allow the user to vertically resize the textarea (not horizontally) */
-			}
-			.input2[type=text]{
-				width: 40%;
-				padding: 12px;
-				border: 1px solid #ccc;
-				border-radius: 4px;
-				box-sizing: border-box;
-				margin-top: 6px;
-				margin-bottom: 16px;
-				resize: horizontal;
-			}
-	
-			.button{
-				background-color: #4CAF50;
-				color: white;
-				padding: 12px 20px;
-				border: none;
-				border-radius: 4px;
-				cursor: pointer;
-			}
-	
-			/* Style the submit button with a specific background color etc */
-			input[type=submit] {
-				background-color: #4CAF50;
-				color: white;
-				padding: 12px 20px;
-				border: none;
-				border-radius: 4px;
-				cursor: pointer;
-			}
-	
-			/* When moving the mouse over the submit button, add a darker green color */
-			input[type=submit]:hover {
-				background-color: #45a049;
-			}
-	
-			/* Add a background color and some padding around the form */
-			.container {
-				position: absolute;
-				right: 0;
-				/* margin-right: 8px; */
-				width: 47%;
-				height: 85%;
-				/* border-radius: 5px; */
-				background-color: #f2f2f2;
-				padding: 20px;
-				overflow: auto;
-				border: 3px solid #73AD21;
-			}
-			.p2{
-            right: 0;
-            margin-top:7px;
-            margin-right: 10px;
-            position: absolute;
-            -webkit-text-fill-color: white;
-            /* Will override color (regardless of order) */
-            -webkit-text-stroke-width: 1px;
-            -webkit-text-stroke-color: #4CAF50;
-            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-            font-size: 30px;
-        }
-		</style>
+		.topnav {
+			background-color: #333;
+			overflow: hidden;
+		}
+
+		body,
+		html {
+			top: 0;
+			margin: 0;
+			scroll-behavior: smooth;
+		}
+
+		/* Style the links inside the navigation bar */
+		.topnav a {
+			float: left;
+			color: #f2f2f2;
+			text-align: center;
+			padding: 14px 16px;
+			text-decoration: none;
+			font-size: 17px;
+		}
+
+		/* Change the color of links on hover */
+		.topnav a:hover {
+			background-color: #ddd;
+			color: black;
+		}
+
+		/* Add a color to the active/current link */
+		.topnav a.active {
+			background-color: #4CAF50;
+			color: white;
+		}
+
+		#map {
+			position: fixed;
+			width: 100%;
+			height: 91.4%;
+			border: 3px solid #73AD21;
+		}
+
+		input[type=text],
+		select,
+		textarea {
+			width: 100%;
+			/* Full width */
+			padding: 12px;
+			/* Some padding */
+			border: 1px solid #ccc;
+			/* Gray border */
+			border-radius: 4px;
+			/* Rounded borders */
+			box-sizing: border-box;
+			/* Make sure that padding and width stays in place */
+			margin-top: 6px;
+			/* Add a top margin */
+			margin-bottom: 16px;
+			/* Bottom margin */
+			resize: vertical
+				/* Allow the user to vertically resize the textarea (not horizontally) */
+		}
+
+		.input2[type=text] {
+			width: 40%;
+			padding: 12px;
+			border: 1px solid #ccc;
+			border-radius: 4px;
+			box-sizing: border-box;
+			margin-top: 6px;
+			margin-bottom: 16px;
+			resize: horizontal;
+		}
+
+		.button {
+			background-color: #4CAF50;
+			color: white;
+			padding: 12px 20px;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+		}
+
+		/* Style the submit button with a specific background color etc */
+		input[type=submit] {
+			background-color: #4CAF50;
+			color: white;
+			padding: 12px 20px;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+		}
+
+		/* When moving the mouse over the submit button, add a darker green color */
+		input[type=submit]:hover {
+			background-color: #45a049;
+		}
+
+		/* Add a background color and some padding around the form */
+		.container {
+			position: absolute;
+			right: 0;
+			/* margin-right: 8px; */
+			width: 47%;
+			height: 85%;
+			/* border-radius: 5px; */
+			background-color: #f2f2f2;
+			padding: 20px;
+			overflow: auto;
+			border: 3px solid #73AD21;
+		}
+
+		.p2 {
+			right: 0;
+			margin-top: 7px;
+			margin-right: 10px;
+			position: absolute;
+			-webkit-text-fill-color: white;
+			/* Will override color (regardless of order) */
+			-webkit-text-stroke-width: 1px;
+			-webkit-text-stroke-color: #4CAF50;
+			font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+			font-size: 30px;
+		}
+
+	</style>
 </head>
 
 <body>
 	<div class="topnav">
-			<a href="home">Home</a>
-			<a class="active" href="Tematik">Wilayah Kos</a>
-			<a href="geotag">Cari Kos</a>
-			<a href="form">Input Kos</a>
-			<p class="p2">AREA STIS</p>
-		</div>
+		<a href="home">Home</a>
+		<a class="active" href="Tematik">Wilayah Kos</a>
+		<a href="geotag">Cari Kos</a>
+		<a href="form">Input Kos</a>
+		<p class="p2">AREA STIS</p>
+	</div>
 	<div id='map'>
 	</div>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script type="text/javascript" src="zxc.js"></script>
+	<script type="text/javascript" src="asd.js"></script>
 	<script type="text/javascript">
 		jQuery.extend({
 			getValues: function (url) {
@@ -214,11 +223,11 @@
 			}
 		});
 
-		var results = $.getValues("api/Spasial/datalengkap");		//full semua termasuk shp isinya 
-		var datadikit = $.getValues("api/Spasial/datadikit");		//cuma yg harga porperties doang
-		var dataspasial = $.getValues("api/Spasial/dataspasial"); 	//shp doang
-		console.log(results.features[0].properties);
-		
+		// var results = $.getValues("api/Spasial/datalengkap");		//full semua termasuk shp isinya 
+		// var datadikit = $.getValues("api/Spasial/datadikit");		//cuma yg harga porperties doang
+		// var dataspasial = $.getValues("api/Spasial/dataspasial"); 	//shp doang
+		// console.log(results.features[0].properties);
+
 		// dibuang sayang
 		// for (var i = 0; i < datadikit.message.length; i++) {
 		// 	var a = datadikit.message[i].nocluster
@@ -246,8 +255,8 @@
 
 		info.update = function (properties) {
 			this._div.innerHTML = '<h4>Rata-rata Harga Kosan/Kontrakan di Daerah STIS Tahun 2018</h4>' + (properties ?
-				'<b>' + properties.namawilaya + '</b><br /> ' + 'Rp ' + properties.hargaAvg
-				: 'sorot daerah untuk mengetahui harga');
+				'<b>' + properties.namawilaya + '</b><br /> ' + 'Rp ' + properties.hargaAvg :
+				'sorot daerah untuk mengetahui harga');
 		};
 		info.addTo(map);
 
@@ -255,11 +264,11 @@
 		function getColor(w) {
 			return w > 1100000 ? '#eaf61d' :
 				w > 1000000 ? '#d4f41a' :
-					w > 900000 ? '#c1f317' :
-						w > 700000 ? '#96e511' :
-							w > 600000 ? '#7cdd0d' :
-								w > 500000 ? '#5ed408' :
-									'#3bc903';
+				w > 900000 ? '#c1f317' :
+				w > 700000 ? '#96e511' :
+				w > 600000 ? '#7cdd0d' :
+				w > 500000 ? '#5ed408' :
+				'#3bc903';
 		}
 
 		function style(feature) {
@@ -287,26 +296,33 @@
 			info.update(layer.feature.properties);
 		}
 		var geojson;
+
 		function resetHighlight(e) {
 			geojson.resetStyle(e.target);
 			info.update();
 		}
+
 		function zoomToFeature(e) {
 			map.fitBounds(e.target.getBounds());
 		}
-		function onEachFeature(feature, layer) {
+
+		function onEachFeature(datasig, layer) {
 			layer.on({
 				mouseover: highlightFeature,
 				mouseout: resetHighlight,
 				click: zoomToFeature
 			});
 		}
-		geojson = L.geoJson(results, {
+		console.log(datasig)
+		geojson = L.geoJson(datasig, {
 			style: style,
 			onEachFeature: onEachFeature,
 		}).addTo(map);
-		map.attributionControl.addAttribution('Survei SIG 2019 &copy; <a href="http://stis.ac.id/">Sekolah Tinggi Ilmu Statistik</a>');
-		var legend = L.control({ position: 'bottomright' });
+		map.attributionControl.addAttribution(
+			'Survei SIG 2019 &copy; <a href="http://stis.ac.id/">Sekolah Tinggi Ilmu Statistik</a>');
+		var legend = L.control({
+			position: 'bottomright'
+		});
 		legend.onAdd = function (map) {
 			var div = L.DomUtil.create('div', 'info legend'),
 				grades = [, 500000, 600000, 700000, 900000, 1000000, 1100000],
@@ -323,6 +339,8 @@
 			return div;
 		};
 		legend.addTo(map);
+
 	</script>
 </body>
+
 </html>
